@@ -5,4 +5,5 @@ pytz
 google-generativeai 
 streamlit
 google-generativeai 
-alpha_vantage==2.3.1       
+alpha_vantage       
+Pillow
