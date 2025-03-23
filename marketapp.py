@@ -46,7 +46,7 @@ def page2():
             image_path=f"<your_image_path>/{market}_{stock}.png"
             st.session_state.image_path=image_path
             
-            stock_api_obj = StockAPI("<your-alpha-vantage-api-key>>")
+            stock_api_obj = StockAPI("1UJ6ACYM0P4MHORZ")
 
             market_data=stock_api_obj.get_stock_info(stock,market)
 
@@ -56,7 +56,7 @@ def page2():
 
             stock_analyzer_obj.plot_stock_data(df,stock, market,image_path)
 
-            ai_insights_obj=AIInsights("<<your-google-api-key>>")
+            ai_insights_obj=AIInsights("AIzaSyAVi1v80vt41mTjZED6BaMs5-74HKFkSk0")
 
             response=ai_insights_obj.get_ai_insights(image_path,stock,market)
 
