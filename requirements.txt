@@ -1,0 +1,6 @@
+pandas 
+matplotlib 
+requests 
+pytz 
+google-generativeai 
+streamlit
