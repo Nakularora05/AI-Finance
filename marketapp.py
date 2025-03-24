@@ -17,20 +17,29 @@ if 'page' not in st.session_state:
 # Set page configuration for better UI
 st.set_page_config(page_title="📊 Stock Insight AI - Technical Analysis", page_icon="📈", layout="wide")
 
-# Custom CSS for a more interactive and beautiful UI
+# Custom CSS for a more interactive and readable UI
 st.markdown("""
     <style>
         body {
-            background: linear-gradient(to right, #4e54c8, #8f94fb);
-            color: white;
+            background: linear-gradient(to right, #1f1c2c, #928dab);
+            color: #f5f5f5;
         }
         .stApp {
-            background: linear-gradient(to right, #4e54c8, #8f94fb);
+            background: linear-gradient(to right, #1f1c2c, #928dab);
+            color: #ffffff;
         }
         .title-text {
             text-align: center;
-            font-size: 40px;
+            font-size: 42px;
             font-weight: bold;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        .stButton>button {
+            color: white;
+            background-color: #4e54c8;
+            border-radius: 12px;
+            padding: 10px 24px;
         }
     </style>
 """, unsafe_allow_html=True)
