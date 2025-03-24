@@ -14,9 +14,30 @@ if 'page' not in st.session_state:
     st.session_state.ai_insights = ""
     st.session_state.internal_results_available = False
 
+# Set page configuration for better UI
+st.set_page_config(page_title="📊 Stock Insight AI - Technical Analysis", page_icon="📈", layout="wide")
+
+# Custom CSS for a more interactive and beautiful UI
+st.markdown("""
+    <style>
+        body {
+            background: linear-gradient(to right, #4e54c8, #8f94fb);
+            color: white;
+        }
+        .stApp {
+            background: linear-gradient(to right, #4e54c8, #8f94fb);
+        }
+        .title-text {
+            text-align: center;
+            font-size: 40px;
+            font-weight: bold;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 # Page 1: Input Page
 def page1():
-    st.title('📊 Stock Insight AI - Technical Analysis')
+    st.markdown('<p class="title-text">📊 Stock Insight AI - Technical Analysis</p>', unsafe_allow_html=True)
 
     col1, col2 = st.columns(2)
     with col1:
@@ -25,24 +46,39 @@ def page1():
         st.session_state.market = st.selectbox("Select Market", ["BSE", "NASDAQ"], index=["BSE", "NASDAQ"].index(st.session_state.market), key="market_input")
 
     st.sidebar.header("About")
-    st.sidebar.write("Stock Insight AI is an advanced technical analysis tool powered by AI insights and real-time market data.")
+    st.sidebar.write("""
+        **Stock Insight AI** is an advanced technical analysis tool powered by AI insights and real-time market data.
+
+        **What this tool does:**
+        - Fetches real-time stock data from BSE and NASDAQ.
+        - Analyzes stock trends and patterns using AI.
+        - Generates visual charts for technical analysis.
+        - Provides AI-powered insights for better decision-making.
+
+        **Steps to perform the search:**
+        1. Enter the stock ticker symbol (e.g., RELIANCE).
+        2. Select the market (BSE or NASDAQ).
+        3. Click "Submit" to initiate the analysis.
+
+        📌 **Copyright © 2025 Nakul Arora & Mohit Vaidya**
+    """)
 
     st.markdown("---")
 
-    if st.button('Submit'):
+    if st.button('Submit', use_container_width=True):
         st.session_state.page = "page2"
         st.session_state.internal_results_available = False
         st.rerun()
 
 # Page 2: Analysis Page
 def page2():
-    st.title(f"Technical Analysis for {st.session_state.ticker} ({st.session_state.market})")
+    st.markdown(f'<p class="title-text">Technical Analysis for {st.session_state.ticker} ({st.session_state.market})</p>', unsafe_allow_html=True)
 
     stock = st.session_state.ticker
     market = st.session_state.market
 
     if not st.session_state.internal_results_available:
-        with st.spinner('Analyzing... Please wait...'):
+        with st.spinner('🔍 Analyzing... Please wait...'):
             temp_dir = tempfile.gettempdir()
             image_path = os.path.join(temp_dir, f"{market}_{stock}.png")
             st.session_state.image_path = image_path
@@ -69,25 +105,25 @@ def page2():
                 st.session_state.internal_results_available = True
 
             except Exception as e:
-                st.error(f"An error occurred: {e}")
+                st.error(f"❌ An error occurred: {e}")
                 return
 
     if st.session_state.internal_results_available:
-        st.subheader("Chart Analysis")
+        st.subheader("📊 Chart Analysis")
         st.image(st.session_state.image_path, caption=f"{stock} Chart", use_column_width=True)
 
-        st.subheader("AI Insights")
+        st.subheader("🧠 AI Insights")
         st.write(st.session_state.ai_insights)
 
         col1, col2 = st.columns(2)
         with col1:
-            if st.button("Back"):
+            if st.button("🔙 Back", use_container_width=True):
                 st.session_state.page = "page1"
                 st.session_state.internal_results_available = False
                 st.rerun()
 
         with col2:
-            if st.button("Analyze Another Stock"):
+            if st.button("📈 Analyze Another Stock", use_container_width=True):
                 st.session_state.page = "page1"
                 st.session_state.internal_results_available = False
                 st.session_state.ticker = ""
