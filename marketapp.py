@@ -4,9 +4,6 @@ from ai_insights_handler import AIInsights
 import streamlit as st
 import os
 import tempfile
-import random
-import pandas as pd
-import plotly.graph_objects as go
 
 # Initialize session state variables
 if 'page' not in st.session_state:
@@ -20,75 +17,9 @@ if 'page' not in st.session_state:
 # Set page configuration for better UI
 st.set_page_config(page_title="📊 Stock Insight AI - Technical Analysis", page_icon="📈", layout="wide")
 
-# Custom CSS for a clean and readable UI
-st.markdown("""
-    <style>
-        body {
-            background-color: white;
-            color: black;
-        }
-        .stApp {
-            background-color: white;
-            color: black;
-        }
-        .title-text {
-            text-align: center;
-            font-size: 42px;
-            font-weight: bold;
-            color: black;
-        }
-        .stButton>button {
-            color: black;
-            background-color: #f0f0f0;
-            border-radius: 12px;
-            padding: 10px 24px;
-            border: 2px solid #4e54c8;
-        }
-    </style>
-""", unsafe_allow_html=True)
-
-# Function to generate a random candlestick chart
-def generate_random_chart():
-    dates = pd.date_range(start="2023-01-01", periods=30)
-    open_prices = [random.randint(100, 500) for _ in range(30)]
-    close_prices = [price + random.randint(-20, 20) for price in open_prices]
-    high_prices = [price + random.randint(10, 30) for price in close_prices]
-    low_prices = [price - random.randint(10, 30) for price in open_prices]
-
-    df = pd.DataFrame({
-        'Date': dates,
-        'Open': open_prices,
-        'High': high_prices,
-        'Low': low_prices,
-        'Close': close_prices
-    })
-
-    fig = go.Figure(data=[
-        go.Candlestick(
-            x=df['Date'],
-            open=df['Open'],
-            high=df['High'],
-            low=df['Low'],
-            close=df['Close'],
-            increasing_line_color='green',
-            decreasing_line_color='red'
-        )
-    ])
-
-    fig.update_layout(
-        title="📊 Random Stock Candlestick Chart",
-        xaxis_title="Date",
-        yaxis_title="Price",
-        template="plotly_white"
-    )
-    return fig
-
 # Page 1: Input Page
 def page1():
-    st.markdown('<p class="title-text">📊 Stock Insight AI - Technical Analysis</p>', unsafe_allow_html=True)
-
-    # Display the random stock candlestick chart
-    st.plotly_chart(generate_random_chart(), use_container_width=True)
+    st.title('Stock Insight AI - Technical Analysis')
 
     col1, col2 = st.columns(2)
     with col1:
@@ -123,7 +54,7 @@ def page1():
 
 # Page 2: Analysis Page
 def page2():
-    st.markdown(f'<p class="title-text">Technical Analysis for {st.session_state.ticker} ({st.session_state.market})</p>', unsafe_allow_html=True)
+    st.title(f"Technical Analysis for {st.session_state.ticker} ({st.session_state.market})")
 
     stock = st.session_state.ticker
     market = st.session_state.market
