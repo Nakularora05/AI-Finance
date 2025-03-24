@@ -48,8 +48,8 @@ st.markdown("""
 def page1():
     st.markdown('<p class="title-text">📊 Stock Insight AI - Technical Analysis</p>', unsafe_allow_html=True)
 
-    # Display updated candlestick chart image
-    st.image("https://www.investopedia.com/thmb/XJMbU4dpHKdoNeHoLV5jSkIHvno=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/candlestickfinal-2d44ebc29c4b49ed9d3b400f1638b6a8.png", caption="Candlestick Chart Example", use_column_width=True)
+    # Display a movable GIF of a candlestick chart
+    st.image("https://media.giphy.com/media/26tn33aiTi1jkl6H6/giphy.gif", caption="Dynamic Candlestick Chart", use_column_width=True)
 
     col1, col2 = st.columns(2)
     with col1:
