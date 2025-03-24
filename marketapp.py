@@ -48,8 +48,8 @@ st.markdown("""
 def page1():
     st.markdown('<p class="title-text">📊 Stock Insight AI - Technical Analysis</p>', unsafe_allow_html=True)
 
-    # Display a movable GIF of a candlestick chart
-    st.image("https://media.giphy.com/media/26tn33aiTi1jkl6H6/giphy.gif", caption="Dynamic Candlestick Chart", use_column_width=True)
+    # Display a working dynamic GIF of a candlestick chart
+    st.image("https://i.gifer.com/7VUO.gif", caption="Dynamic Candlestick Chart", use_column_width=True)
 
     col1, col2 = st.columns(2)
     with col1:
