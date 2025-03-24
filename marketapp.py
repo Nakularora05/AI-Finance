@@ -25,8 +25,7 @@ st.markdown("""
             color: black;
         }
         .stApp {
-            background: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40') no-repeat center center fixed;
-            background-size: cover;
+            background-color: white;
             color: black;
         }
         .title-text {
@@ -48,6 +47,9 @@ st.markdown("""
 # Page 1: Input Page
 def page1():
     st.markdown('<p class="title-text">📊 Stock Insight AI - Technical Analysis</p>', unsafe_allow_html=True)
+
+    # Display candlestick chart image
+    st.image("https://www.investopedia.com/thmb/WF8qDH7lnqEp4NZdzICRGt-FKsk=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/dotdash-investopedia-images-technical-analysis-candlestick-5801cfd3c91b4e28b74ff180a574c7db.png", caption="Candlestick Chart Example", use_column_width=True)
 
     col1, col2 = st.columns(2)
     with col1:
