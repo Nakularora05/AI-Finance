@@ -4,6 +4,9 @@ from ai_insights_handler import AIInsights
 import streamlit as st
 import os
 import tempfile
+import random
+import pandas as pd
+import plotly.graph_objects as go
 
 # Initialize session state variables
 if 'page' not in st.session_state:
@@ -44,12 +47,48 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+# Function to generate a random candlestick chart
+def generate_random_chart():
+    dates = pd.date_range(start="2023-01-01", periods=30)
+    open_prices = [random.randint(100, 500) for _ in range(30)]
+    close_prices = [price + random.randint(-20, 20) for price in open_prices]
+    high_prices = [price + random.randint(10, 30) for price in close_prices]
+    low_prices = [price - random.randint(10, 30) for price in open_prices]
+
+    df = pd.DataFrame({
+        'Date': dates,
+        'Open': open_prices,
+        'High': high_prices,
+        'Low': low_prices,
+        'Close': close_prices
+    })
+
+    fig = go.Figure(data=[
+        go.Candlestick(
+            x=df['Date'],
+            open=df['Open'],
+            high=df['High'],
+            low=df['Low'],
+            close=df['Close'],
+            increasing_line_color='green',
+            decreasing_line_color='red'
+        )
+    ])
+
+    fig.update_layout(
+        title="📊 Random Stock Candlestick Chart",
+        xaxis_title="Date",
+        yaxis_title="Price",
+        template="plotly_white"
+    )
+    return fig
+
 # Page 1: Input Page
 def page1():
     st.markdown('<p class="title-text">📊 Stock Insight AI - Technical Analysis</p>', unsafe_allow_html=True)
 
-    # Display a working dynamic GIF of a candlestick chart
-    st.image("https://i.gifer.com/7VUO.gif", caption="Dynamic Candlestick Chart", use_column_width=True)
+    # Display the random stock candlestick chart
+    st.plotly_chart(generate_random_chart(), use_container_width=True)
 
     col1, col2 = st.columns(2)
     with col1:
@@ -127,19 +166,10 @@ def page2():
         st.subheader("🧠 AI Insights")
         st.write(st.session_state.ai_insights)
 
-        col1, col2 = st.columns(2)
-        with col1:
-            if st.button("🔙 Back", use_container_width=True):
-                st.session_state.page = "page1"
-                st.session_state.internal_results_available = False
-                st.rerun()
-
-        with col2:
-            if st.button("📈 Analyze Another Stock", use_container_width=True):
-                st.session_state.page = "page1"
-                st.session_state.internal_results_available = False
-                st.session_state.ticker = ""
-                st.rerun()
+        if st.button("🔙 Back", use_container_width=True):
+            st.session_state.page = "page1"
+            st.session_state.internal_results_available = False
+            st.rerun()
 
 # Route between pages
 if st.session_state.page == "page1":
