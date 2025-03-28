@@ -71,10 +71,13 @@ def page2():
                 ai_insights_obj = AIInsights("AIzaSyAVi1v80vt41mTjZED6BaMs5-74HKFkSk0")
 
                 market_data = stock_api_obj.get_stock_info(stock, market)
-
                 df = stock_analyzer_obj.json_to_dataframe(market_data, stock, market)
 
-                stock_analyzer_obj.plot_stock_data(df, stock, market, image_path)
+                # Calculate Fibonacci Levels
+                fib_levels = stock_analyzer_obj.calculate_fibonacci_levels(df)
+                
+                # Plot stock data with Fibonacci levels
+                stock_analyzer_obj.plot_stock_data(df, stock, market, image_path, fib_levels)
 
                 response = ai_insights_obj.get_ai_insights(image_path, stock, market)
 
